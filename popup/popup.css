@@ -1,0 +1,9 @@
+.btns {
+    display: flex;
+    flex-direction: row;
+}
+
+.btn {
+    width: 5rem;
+    height: 5rem;
+}

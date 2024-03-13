@@ -1,0 +1,14 @@
+{
+    "name": "Custom Actions",
+    "description": "Custom keyboard actions",
+    "version": "1.0",
+    "manifest_version": 3,
+    "action": {
+        "default_popup": "./popup/popup.html",
+        "default_icon": "./images/icon.png"
+    },
+    "permissions": [
+        "storage",
+        "tabs"
+    ]
+}
