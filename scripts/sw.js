@@ -2,6 +2,7 @@ chrome.runtime.onMessage.addListener(
   function (msg) {
     if (msg.action === "tab-left") moveCurrentTabLeft();
     if (msg.action === "tab-right") moveCurrentTabRight();
+    if (msg.action === "duplicate") duplicateTab();
   }
 );
 
@@ -38,5 +39,13 @@ function moveCurrentTabRight() {
     if (tab.index+1 === numTabs) newIndex = 0;
     else newIndex = tab.index + 1;
     chrome.tabs.move(tab.id, { index: newIndex });
+  });
+}
+
+function duplicateTab() {
+  getCurrentTab((tab) => {
+    chrome.tabs.create({
+      url: tab.url
+    });
   });
 }

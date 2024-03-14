@@ -12,14 +12,15 @@ console.log("content script loaded");
 
 var ctrl = false;
 
+document.addEventListener("keyup", (e) => {
+  if (e.code === "ControlLeft") ctrl = false;
+});
+
 document.addEventListener("keydown", (e) => {
   if (e.code === "ControlLeft") ctrl = true;
   if (ctrl && e.code === "ArrowLeft") sendMessageToExtension({ action: "tab-left" });
   if (ctrl && e.code === "ArrowRight") sendMessageToExtension({ action: "tab-right" });
-});
-
-document.addEventListener("keyup", (e) => {
-  if (e.code === "ControlLeft") ctrl = false;
+  if (ctrl && e.code === "ArrowUp") sendMessageToExtension({ action: "duplicate" });
 });
 
 function sendMessageToExtension(msg) {
