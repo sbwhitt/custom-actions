@@ -1,10 +1,29 @@
 chrome.runtime.onMessage.addListener(
   function (msg) {
-    if (msg.action === "tab-left") moveCurrentTabLeft();
-    if (msg.action === "tab-right") moveCurrentTabRight();
-    if (msg.action === "duplicate") duplicateTab();
+    getActive((active) => {
+      if (active) handleActions(msg.action);
+    });
   }
 );
+
+function handleActions(action) {
+  if (action === "tab-left") moveCurrentTabLeft();
+  if (action === "tab-right") moveCurrentTabRight();
+  if (action === "duplicate") duplicateTab();
+}
+
+function getActive(callback) {
+  chrome.storage.local.get(["active"]).then((val) => {
+    if (val.active === undefined) {
+      setActive(true).then(() => { callback(true) });
+    }
+    else callback(val.active);
+  });
+}
+
+function setActive(val) {
+  return chrome.storage.local.set({ active: val });
+}
 
 function getCurrentTab(callback) {
   let queryOptions = { active: true };
