@@ -10,5 +10,15 @@
     "permissions": [
         "storage",
         "tabs"
-    ]
+    ],
+    "content_scripts": [
+        {
+            "matches": ["<all_urls>"],
+            "js": ["./scripts/script.js"],
+            "run_at": "document_idle"
+        }
+    ],
+    "background": {
+        "service_worker": "./scripts/sw.js"
+    }
 }
