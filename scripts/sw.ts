@@ -1,4 +1,4 @@
-import { getActive } from "../modules/state";
+import { getActive } from "../modules/state.js";
 
 chrome.runtime.onMessage.addListener(
   function (msg) {
