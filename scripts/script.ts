@@ -20,6 +20,6 @@ document.addEventListener("keydown", (e) => {
   else if (ctrl && e.code === "ArrowUp") sendMessageToExtension({ action: "duplicate" });
 });
 
-function sendMessageToExtension(msg) {
+function sendMessageToExtension(msg: any) {
   chrome.runtime.sendMessage(msg);
 }

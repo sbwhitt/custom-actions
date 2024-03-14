@@ -1,31 +1,20 @@
+import { getActive } from "../modules/state";
+
 chrome.runtime.onMessage.addListener(
   function (msg) {
-    getActive((active) => {
+    getActive((active: boolean) => {
       if (active) handleActions(msg.action);
     });
   }
 );
 
-function handleActions(action) {
+function handleActions(action: string) {
   if (action === "tab-left") moveCurrentTabLeft();
   if (action === "tab-right") moveCurrentTabRight();
   if (action === "duplicate") duplicateTab();
 }
 
-function getActive(callback) {
-  chrome.storage.local.get(["active"]).then((val) => {
-    if (val.active === undefined) {
-      setActive(true).then(() => { callback(true) });
-    }
-    else callback(val.active);
-  });
-}
-
-function setActive(val) {
-  return chrome.storage.local.set({ active: val });
-}
-
-function getCurrentTab(callback) {
+function getCurrentTab(callback: Function) {
   let queryOptions = { active: true };
   chrome.tabs.query(queryOptions, ([tab]) => {
     if (chrome.runtime.lastError) console.error(chrome.runtime.lastError);
@@ -33,14 +22,14 @@ function getCurrentTab(callback) {
   });
 }
 
-function sendMessage(msg) {
-  getCurrentTab((tab) => {
-    chrome.tabs.sendMessage(tab.id, msg);
-  });
-}
+// function sendMessage(msg) {
+//   getCurrentTab((tab) => {
+//     chrome.tabs.sendMessage(tab.id, msg);
+//   });
+// }
 
 function moveCurrentTabLeft() {
-  getCurrentTab(async (tab) => {
+  getCurrentTab(async (tab: any) => {
     const tabs = await chrome.tabs.query({});
     const numTabs = tabs.length;
     let newIndex;
@@ -51,18 +40,18 @@ function moveCurrentTabLeft() {
 }
 
 function moveCurrentTabRight() {
-  getCurrentTab(async (tab) => {
+  getCurrentTab(async (tab: chrome.tabs.Tab) => {
     const tabs = await chrome.tabs.query({});
     const numTabs = tabs.length;
     let newIndex;
     if (tab.index+1 === numTabs) newIndex = 0;
     else newIndex = tab.index + 1;
-    chrome.tabs.move(tab.id, { index: newIndex });
+    chrome.tabs.move(tab.id ? tab.id : 0, { index: newIndex });
   });
 }
 
 function duplicateTab() {
-  getCurrentTab((tab) => {
+  getCurrentTab((tab: chrome.tabs.Tab) => {
     chrome.tabs.create({
       url: tab.url
     });
