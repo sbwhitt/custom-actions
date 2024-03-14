@@ -1,9 +1,9 @@
-.btns {
-    display: flex;
-    flex-direction: row;
+.power-icon {
+    width: 6rem;
+    height: 6rem;
 }
 
-.btn {
-    width: 5rem;
-    height: 5rem;
+.power-icon:hover {
+    cursor: pointer;
+    background: #dedede;
 }
