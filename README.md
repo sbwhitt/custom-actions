@@ -7,6 +7,8 @@ Custom keyboard actions for chrome
 * Ctrl+Up: Duplicate the current tab
 * Ctrl+Left: Move the current tab left
 * Ctrl+Right: Move the current tab right
+* Ctrl+Down: Move the current tab to it's own window
+* Alt+Shift+Left: Open the last visited location in a new tab
 
 ## How it works
 

@@ -13,6 +13,7 @@ function handleActions(action: string) {
   else if (action === "tab-right") moveCurrentTabRight();
   else if (action === "duplicate") duplicateCurrentTab();
   else if (action === "promote") promoteCurrentTab();
+  else if (action === "open-last") openLastLocation();
 }
 
 function getCurrentTab(callback: Function) {
@@ -51,11 +52,15 @@ function moveCurrentTabRight() {
   });
 }
 
+function openTab(url: string | undefined) {
+  chrome.tabs.create({
+    url: url
+  });
+}
+
 function duplicateCurrentTab() {
   getCurrentTab((tab: chrome.tabs.Tab) => {
-    chrome.tabs.create({
-      url: tab.url
-    });
+    openTab(tab.url);
   });
 }
 
@@ -65,5 +70,11 @@ function promoteCurrentTab() {
       tabId: tab.id
     }
     return chrome.windows.create(data);
+  });
+}
+
+function openLastLocation() {
+  chrome.history.search({ text: "", maxResults: 2 }).then((items) => {
+    if (items[1]) openTab(items[1].url);
   });
 }
