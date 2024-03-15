@@ -10,8 +10,9 @@ chrome.runtime.onMessage.addListener(
 
 function handleActions(action: string) {
   if (action === "tab-left") moveCurrentTabLeft();
-  if (action === "tab-right") moveCurrentTabRight();
-  if (action === "duplicate") duplicateTab();
+  else if (action === "tab-right") moveCurrentTabRight();
+  else if (action === "duplicate") duplicateCurrentTab();
+  else if (action === "promote") promoteCurrentTab();
 }
 
 function getCurrentTab(callback: Function) {
@@ -50,10 +51,19 @@ function moveCurrentTabRight() {
   });
 }
 
-function duplicateTab() {
+function duplicateCurrentTab() {
   getCurrentTab((tab: chrome.tabs.Tab) => {
     chrome.tabs.create({
       url: tab.url
     });
+  });
+}
+
+function promoteCurrentTab() {
+  getCurrentTab((tab: chrome.tabs.Tab) => {
+    const data: chrome.windows.CreateData = {
+      tabId: tab.id
+    }
+    return chrome.windows.create(data);
   });
 }
