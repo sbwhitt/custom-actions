@@ -1,7 +1,7 @@
 {
   "name": "custom-actions",
   "version": "1.0.0",
-  "description": "Chrome extension for additional keyboard shortcuts",
+  "description": "Custom keyboard shortcuts for your browser.",
   "main": "./popup/popup.js",
   "scripts": {
     "build": "tsc"

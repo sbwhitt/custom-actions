@@ -1,8 +1,12 @@
 {
     "name": "Custom Actions",
-    "description": "Custom keyboard actions",
-    "version": "1.0",
+    "description": "Custom keyboard shortcuts for your browser.",
+    "version": "1.0.0",
     "manifest_version": 3,
+    "icons": {
+        "48": "./images/icon.png",
+        "128": "./images/icon.png"
+    },
     "action": {
         "default_popup": "./popup/popup.html",
         "default_icon": "./images/icon.png"
