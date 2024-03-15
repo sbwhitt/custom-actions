@@ -1,4 +1,4 @@
-import { getActive, setActive } from "../modules/state";
+import { getActive, setActive } from "../modules/state.js";
 
 document.addEventListener("DOMContentLoaded", () => {
   const powerIcon = document.getElementById("powerIcon");
