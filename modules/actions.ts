@@ -10,8 +10,7 @@ export function getCurrentTab(callback: Function) {
   }
 }
 
-
-export function sendMessage(msg: any) {
+export function sendMessageToCurrentTab(msg: any) {
   getCurrentTab((tab: chrome.tabs.Tab) => {
     if (tab.id) chrome.tabs.sendMessage(tab.id, msg);
   });

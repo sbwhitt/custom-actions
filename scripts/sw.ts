@@ -7,10 +7,14 @@ import {
   openLastLocation
 } from "../modules/actions.js";
 
+interface ActionMessage {
+  action: string;
+}
+
 function init() {
   try {
     chrome.runtime.onMessage.addListener(
-      function (msg) {
+      function (msg: ActionMessage) {
         getActive((active: boolean) => {
           if (active) handleActions(msg.action);
         });
