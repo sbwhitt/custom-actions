@@ -1,12 +1,26 @@
 import { getActive } from "../modules/state.js";
+import {
+  moveCurrentTabLeft,
+  moveCurrentTabRight,
+  duplicateCurrentTab,
+  promoteCurrentTab,
+  openLastLocation
+} from "../modules/actions.js";
 
-chrome.runtime.onMessage.addListener(
-  function (msg) {
-    getActive((active: boolean) => {
-      if (active) handleActions(msg.action);
-    });
+function init() {
+  try {
+    chrome.runtime.onMessage.addListener(
+      function (msg) {
+        getActive((active: boolean) => {
+          if (active) handleActions(msg.action);
+        });
+      }
+    );
+  } catch (err) {
+    console.error("Error initializing service worker: ", err);
+    if (chrome.runtime.lastError) console.error(chrome.runtime.lastError);
   }
-);
+}
 
 function handleActions(action: string) {
   if (action === "tab-left") moveCurrentTabLeft();
@@ -16,65 +30,4 @@ function handleActions(action: string) {
   else if (action === "open-last") openLastLocation();
 }
 
-function getCurrentTab(callback: Function) {
-  let queryOptions = { active: true, lastFocusedWindow: true };
-  chrome.tabs.query(queryOptions, ([tab]) => {
-    if (chrome.runtime.lastError) console.error(chrome.runtime.lastError);
-    callback(tab);
-  });
-}
-
-// function sendMessage(msg) {
-//   getCurrentTab((tab) => {
-//     chrome.tabs.sendMessage(tab.id, msg);
-//   });
-// }
-
-function moveCurrentTabLeft() {
-  getCurrentTab(async (tab: any) => {
-    const tabs = await chrome.tabs.query({});
-    const numTabs = tabs.length;
-    let newIndex;
-    if (tab.index === 0) newIndex = numTabs;
-    else newIndex = tab.index - 1;
-    chrome.tabs.move(tab.id, { index: newIndex });
-  });
-}
-
-function moveCurrentTabRight() {
-  getCurrentTab(async (tab: chrome.tabs.Tab) => {
-    const tabs = await chrome.tabs.query({});
-    const numTabs = tabs.length;
-    let newIndex;
-    if (tab.index+1 === numTabs) newIndex = 0;
-    else newIndex = tab.index + 1;
-    chrome.tabs.move(tab.id ? tab.id : 0, { index: newIndex });
-  });
-}
-
-function openTab(url: string | undefined) {
-  chrome.tabs.create({
-    url: url
-  });
-}
-
-function duplicateCurrentTab() {
-  getCurrentTab((tab: chrome.tabs.Tab) => {
-    openTab(tab.url);
-  });
-}
-
-function promoteCurrentTab() {
-  getCurrentTab((tab: chrome.tabs.Tab) => {
-    const data: chrome.windows.CreateData = {
-      tabId: tab.id
-    }
-    return chrome.windows.create(data);
-  });
-}
-
-function openLastLocation() {
-  chrome.history.search({ text: "", maxResults: 2 }).then((items) => {
-    if (items[1]) openTab(items[1].url);
-  });
-}
+init();
