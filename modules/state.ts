@@ -1,3 +1,7 @@
+export function setActive(val: boolean) {
+  return chrome.storage.local.set({ active: val });
+}
+
 export function getActive(callback: Function) {
   chrome.storage.local.get(["active"]).then((val) => {
     if (val["active"] === undefined) {
@@ -7,6 +11,12 @@ export function getActive(callback: Function) {
   });
 }
 
-export function setActive(val: boolean) {
-  return chrome.storage.local.set({ active: val });
+export function setShortcuts(shortcuts: any[]) {
+  return chrome.storage.local.set({ shortcuts: shortcuts });
+}
+
+export function getShortcuts() {
+  return chrome.storage.local.get(["shortcuts"]).then((val) => {
+    return val["shortcuts"];
+  });
 }

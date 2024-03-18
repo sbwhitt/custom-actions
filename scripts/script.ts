@@ -1,33 +1,88 @@
-var modifiers = {
-  leftCtrl: false,
-  leftAlt: false,
-  leftShift: false
-};
+interface Shortcut {
+  sequence: string[];
+  action: string;
+}
 
-// working receive message from chrome.tabs.sendMessage
-chrome.runtime.onMessage.addListener(
-  function (message, sender, sendResponse) {
-    console.log(message)
+var keyMap = new Map();
+
+const s: Shortcut[] = [
+  {
+    sequence: ["ControlLeft", "ArrowLeft"],
+    action: "tab-left"
+  },
+  {
+    sequence: ["ControlLeft", "ArrowRight"],
+    action: "tab-right"
+  },
+  {
+    sequence: ["ControlLeft", "ArrowUp"],
+    action: "duplicate"
+  },
+  {
+    sequence: ["ControlLeft", "ArrowDown"],
+    action: "promote"
+  },
+  {
+    sequence: ["AltLeft", "ShiftLeft", "ArrowLeft"],
+    action: "open-last"
   }
-);
+];
 
-document.addEventListener("keyup", (e) => {
-  if (e.code === "ControlLeft") modifiers.leftCtrl = false;
-  else if (e.code === "AltLeft") modifiers.leftAlt = false;
-  else if (e.code === "ShiftLeft") modifiers.leftShift = false;
-});
+async function init() {
+  await setShortcuts(s);
 
-document.addEventListener("keydown", (e) => {
-  if (e.code === "ControlLeft") modifiers.leftCtrl = true;
-  else if (e.code === "AltLeft") modifiers.leftAlt = true;
-  else if (e.code === "ShiftLeft") modifiers.leftShift = true;
-  else if (modifiers.leftCtrl && e.code === "ArrowLeft") sendMessageToExtension({ action: "tab-left" });
-  else if (modifiers.leftCtrl && e.code === "ArrowRight") sendMessageToExtension({ action: "tab-right" });
-  else if (modifiers.leftCtrl && e.code === "ArrowUp") sendMessageToExtension({ action: "duplicate" });
-  else if (modifiers.leftCtrl && e.code === "ArrowDown") sendMessageToExtension({ action: "promote" });
-  else if (modifiers.leftAlt && modifiers.leftShift && e.code === "ArrowLeft") sendMessageToExtension({ action: "open-last" });
-});
+  // working receive message from chrome.tabs.sendMessage
+  chrome.runtime.onMessage.addListener(
+    function (message, sender, sendResponse) {
+      console.log(message)
+    }
+  );
+
+  document.addEventListener("keyup", (e) => {
+    keyMap.set(e.code, false);
+  });
+
+  document.addEventListener("keydown", (e) => {
+    keyMap.set(e.code, true);
+    getShortcuts().then((res) => {
+      handleShortcuts(res);
+    })
+  });
+
+  document.addEventListener('visibilitychange', () => {
+    keyMap = new Map();
+  });
+}
+
+// TODO: double declaration because importing is highly illegal in here
+function setShortcuts(shortcuts: any[]) {
+  return chrome.storage.local.set({ shortcuts: shortcuts });
+}
+
+function getShortcuts() {
+  return chrome.storage.local.get(["shortcuts"]).then((val) => {
+    return val["shortcuts"];
+  });
+}
+
+function handleShortcuts(shortcuts: Shortcut[]) {
+  for (let s of shortcuts) {
+    let active = true;
+    for (let key of s.sequence) {
+      if (!keyMap.get(key)) {
+        active = false;
+        break;
+      }
+    }
+    if (active) {
+      sendMessageToExtension({ action: s.action });
+      return;
+    }
+  }
+}
 
 function sendMessageToExtension(msg: any) {
   chrome.runtime.sendMessage(msg);
 }
+
+init();
