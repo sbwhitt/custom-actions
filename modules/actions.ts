@@ -69,3 +69,17 @@ export function openLastLocation() {
     if (items[1]) openTab(items[1].url);
   });
 }
+
+// export async function collapseWindows() {
+//   const windows = await chrome.windows.getAll();
+//   for (let i = 1; i < windows.length; i++) {
+//     const win = windows[i];
+//     for (let tab of win.tabs || []) {
+//       console.log(tab);
+//       if (win.id && tab.id) await chrome.tabs.move(tab.id, { 
+//         index: windows[0].tabs ? windows[0].tabs.length : 0,
+//         windowId: win.id
+//       });
+//     }
+//   }
+// }
