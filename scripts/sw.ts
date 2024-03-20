@@ -5,7 +5,7 @@ import {
   duplicateCurrentTab,
   promoteCurrentTab,
   openLastLocation,
-  // collapseWindows
+  collapseWindows
 } from "../modules/actions.js";
 
 interface ActionMessage {
@@ -33,7 +33,7 @@ function handleActions(action: string) {
   else if (action === "duplicate") duplicateCurrentTab();
   else if (action === "promote") promoteCurrentTab();
   else if (action === "open-last") openLastLocation();
-  // else if (action === "collapse") collapseWindows();
+  else if (action === "collapse") collapseWindows();
 }
 
 init();

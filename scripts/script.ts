@@ -26,10 +26,10 @@ const s: Shortcut[] = [
     sequence: ["AltLeft", "ShiftLeft", "ArrowLeft"],
     action: "open-last"
   },
-  // {
-  //   sequence: ["AltLeft", "ArrowDown"],
-  //   action: "collapse"
-  // }
+  {
+    sequence: ["AltLeft", "ArrowDown"],
+    action: "collapse"
+  }
 ];
 
 async function init() {
