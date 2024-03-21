@@ -3,7 +3,7 @@ import { getShortcuts, setShortcuts } from "./modules/state";
 
 var keyMap = new Map();
 
-const s: Shortcut[] = [
+const defaults: Shortcut[] = [
   {
     sequence: ["ControlLeft", "ArrowLeft"],
     action: {
@@ -49,14 +49,7 @@ const s: Shortcut[] = [
 ];
 
 async function init() {
-  await setShortcuts(s);
-
-  // working receive message from chrome.tabs.sendMessage
-  chrome.runtime.onMessage.addListener(
-    function (message, sender, sendResponse) {
-      console.log(message)
-    }
-  );
+  await checkStoredShortcuts();
 
   document.addEventListener("keyup", (e) => {
     keyMap.set(e.code, false);
@@ -64,9 +57,13 @@ async function init() {
 
   document.addEventListener("keydown", (e) => {
     keyMap.set(e.code, true);
-    getShortcuts().then((res) => {
-      handleShortcuts(res);
-    })
+    try {
+      getShortcuts().then((res) => {
+        handleShortcuts(res);
+      });
+    } catch (err) {
+      console.log(err);
+    }
   });
 
   document.addEventListener('visibilitychange', () => {
@@ -74,16 +71,17 @@ async function init() {
   });
 }
 
-// TODO: double declaration because importing is highly illegal in here
-// function setShortcuts(shortcuts: any[]) {
-//   return chrome.storage.local.set({ shortcuts: shortcuts });
-// }
-
-// function getShortcuts() {
-//   return chrome.storage.local.get(["shortcuts"]).then((val) => {
-//     return val["shortcuts"];
-//   });
-// }
+async function checkStoredShortcuts() {
+  try {
+    getShortcuts().then(async (res) => {
+      if (!res) {
+        await setShortcuts(defaults);
+      }
+    });
+  } catch (err) {
+    console.error(err);
+  }
+}
 
 function handleShortcuts(shortcuts: Shortcut[]) {
   for (let s of shortcuts) {
