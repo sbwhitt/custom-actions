@@ -1,8 +1,7 @@
 import { Component } from '@angular/core';
-import { CommonModule, NgFor, NgIf } from '@angular/common';
-import { RouterOutlet } from '@angular/router';
-import { getActive, setActive } from "../modules/state";
-import { ActionsListComponent } from './actions-list/actions-list.component';
+import { CommonModule, NgIf } from '@angular/common';
+import { RouterOutlet, RouterLink } from '@angular/router';
+import packageInfo from '../../package.json';
 
 @Component({
   selector: 'app-root',
@@ -10,30 +9,18 @@ import { ActionsListComponent } from './actions-list/actions-list.component';
   imports: [
     CommonModule,
     RouterOutlet,
-    NgIf,
-    NgFor,
-    ActionsListComponent
+    RouterLink,
+    NgIf
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
 export class AppComponent {
   title = 'custom-actions';
-  active = true;
-  menuOpen = false;
+  version = packageInfo.version;
+  settingsOpen = false;
 
-  ngOnInit() {
-    getActive((val: boolean) => {
-      this.active = val;
-    });
-  }
-
-  toggleActive() {
-    this.active = !this.active;
-    setActive(this.active);
-  }
-
-  toggleMenu() {
-    this.menuOpen = !this.menuOpen;
+  toggleSettings() {
+    this.settingsOpen = !this.settingsOpen;
   }
 }
