@@ -32,6 +32,8 @@ const s: Shortcut[] = [
   }
 ];
 
+console.log("content script");
+
 async function init() {
   await setShortcuts(s);
 

@@ -1,0 +1,82 @@
+.bg {
+  width: 16rem;
+  height: 18rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background: white;
+}
+
+.title-bar {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  background: #73cfea50;
+}
+
+.title {
+  font-size: 1rem;
+  font-weight: bold;
+  margin: 0.5rem auto 0.5rem 0.5rem;
+}
+
+.menu-icon {
+  width: 1.5rem;
+  height: 1.5rem;
+  margin: auto 0.5rem auto auto;
+}
+
+.menu-icon:hover {
+  cursor: pointer;
+  background: #73cfea50;
+}
+
+hr {
+  width: 100%;
+  color: black;
+  margin: 0;
+}
+
+.main-content {
+  width: 100%;
+  height: 100%;
+}
+
+.icon-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+  justify-content: center;
+}
+
+.power-icon {
+  width: 10rem;
+  height: 10rem;
+  margin: auto;
+}
+
+.power-icon:hover {
+  cursor: pointer;
+  background: #efefef;
+  border-radius: 50%;
+}
+
+.settings {
+  width: 100%;
+  height: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+  margin: 0.5rem;
+}
+
+.shortcut {
+  font-size: 1rem;
+}
+
+footer {
+  width: 100%;
+  padding: 0.25rem;
+  background: #efefef;
+}
