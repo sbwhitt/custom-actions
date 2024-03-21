@@ -1,38 +1,52 @@
-interface Shortcut {
-  sequence: string[];
-  action: string;
-}
+import { Shortcut } from "./modules/types";
+import { getShortcuts, setShortcuts } from "./modules/state";
 
 var keyMap = new Map();
 
 const s: Shortcut[] = [
   {
     sequence: ["ControlLeft", "ArrowLeft"],
-    action: "tab-left"
+    action: {
+      name: "tab-left",
+      description: "Moves the current tab one position to the left."
+    }
   },
   {
     sequence: ["ControlLeft", "ArrowRight"],
-    action: "tab-right"
+    action: {
+      name: "tab-right",
+      description: "Moves the current tab one position to the right."
+    }
   },
   {
     sequence: ["ControlLeft", "ArrowUp"],
-    action: "duplicate"
+    action: {
+      name: "duplicate",
+      description: "Duplicates the current tab."
+    }
   },
   {
     sequence: ["ControlLeft", "ArrowDown"],
-    action: "promote"
+    action: {
+      name: "promote",
+      description: "Promotes the current tab to its own window."
+    }
   },
   {
     sequence: ["AltLeft", "ShiftLeft", "ArrowLeft"],
-    action: "open-last"
+    action: {
+      name: "open-last",
+      description: "Opens the last visited page in a new tab."
+    }
   },
   {
     sequence: ["AltLeft", "ArrowDown"],
-    action: "collapse"
+    action: {
+      name: "collapse",
+      description: "Collapses all tabs in all windows into a single window."
+    }
   }
 ];
-
-console.log("content script");
 
 async function init() {
   await setShortcuts(s);
@@ -61,15 +75,15 @@ async function init() {
 }
 
 // TODO: double declaration because importing is highly illegal in here
-function setShortcuts(shortcuts: any[]) {
-  return chrome.storage.local.set({ shortcuts: shortcuts });
-}
+// function setShortcuts(shortcuts: any[]) {
+//   return chrome.storage.local.set({ shortcuts: shortcuts });
+// }
 
-function getShortcuts() {
-  return chrome.storage.local.get(["shortcuts"]).then((val) => {
-    return val["shortcuts"];
-  });
-}
+// function getShortcuts() {
+//   return chrome.storage.local.get(["shortcuts"]).then((val) => {
+//     return val["shortcuts"];
+//   });
+// }
 
 function handleShortcuts(shortcuts: Shortcut[]) {
   for (let s of shortcuts) {

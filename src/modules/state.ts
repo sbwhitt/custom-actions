@@ -1,7 +1,4 @@
-export interface Shortcut {
-  sequence: string[];
-  action: string;
-}
+import { Shortcut } from "./types";
 
 export function setActive(val: boolean) {
   return chrome.storage.local.set({ active: val });

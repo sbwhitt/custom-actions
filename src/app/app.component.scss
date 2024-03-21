@@ -4,31 +4,32 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  background: white;
+  background: var(--accent);
 }
 
 .title-bar {
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
-  background: #73cfea50;
+  justify-content: flex-start;
+  background: var(--primary);
 }
 
 .title {
-  font-size: 1rem;
+  font-size: 1.10rem;
   font-weight: bold;
-  margin: 0.5rem auto 0.5rem 0.5rem;
+  margin: auto auto auto 0.5rem;
 }
 
 .menu-icon {
   width: 1.5rem;
   height: 1.5rem;
-  margin: auto 0.5rem auto auto;
+  padding: 0.5rem;
+  fill: white;
 }
 
 .menu-icon:hover {
   cursor: pointer;
-  background: #73cfea50;
+  background: var(--primary-lighter);
 }
 
 hr {
@@ -59,7 +60,7 @@ hr {
 
 .power-icon:hover {
   cursor: pointer;
-  background: #efefef;
+  background: var(--primary-lighter);
   border-radius: 50%;
 }
 
@@ -68,7 +69,17 @@ hr {
   height: 100%;
   overflow-y: auto;
   overflow-x: hidden;
-  margin: 0.5rem;
+  padding: 0.5rem;
+  animation: fadeIn 0.25s forwards;
+}
+
+@keyframes fadeIn {
+  from {
+    scale: 10%;
+  }
+  to {
+    scale: 100%;
+  }
 }
 
 .shortcut {
@@ -78,5 +89,5 @@ hr {
 footer {
   width: 100%;
   padding: 0.25rem;
-  background: #efefef;
+  background: var(--primary);
 }
