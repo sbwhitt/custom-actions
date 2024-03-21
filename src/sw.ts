@@ -1,4 +1,4 @@
-import { getActive } from "../modules/state.js";
+import { getActive } from "./modules/state";
 import {
   moveCurrentTabLeft,
   moveCurrentTabRight,
@@ -6,11 +6,13 @@ import {
   promoteCurrentTab,
   openLastLocation,
   collapseWindows
-} from "../modules/actions.js";
+} from "./modules/actions";
 
 interface ActionMessage {
   action: string;
 }
+
+console.log("service worker");
 
 function init() {
   try {
