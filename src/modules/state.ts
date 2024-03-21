@@ -16,7 +16,7 @@ export function setShortcuts(shortcuts: any[]) {
 }
 
 export function getShortcuts() {
-  return chrome.storage.local.get(["shortcuts"]).then((val) => {
+  return chrome.storage.local.get(["shortcuts"]).then((val: any) => {
     return val["shortcuts"];
   });
 }

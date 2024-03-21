@@ -1,9 +1,63 @@
-.power-icon {
-    width: 6rem;
-    height: 6rem;
+.bg {
+  width: 12rem;
+  height: 16rem;
+  display: flex;
+  flex-direction: column;
+  background: white;
+}
+
+.title-bar {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  background: #73cfea50;
+}
+
+.title {
+  font-size: 1rem;
+  font-weight: bold;
+  margin: 0.5rem auto 0.5rem 0.5rem;
+}
+
+.menu-icon {
+  width: 1.5rem;
+  height: 1.5rem;
+  margin: auto 0.5rem auto auto;
+}
+
+.menu-icon:hover {
+  cursor: pointer;
+  background: #73cfea50;
+}
+
+hr {
+  width: 100%;
+  color: black;
+  margin: 0;
+}
+
+.main-content {
+  width: 8rem;
+  height: 8rem;
+  margin: auto;
 }
 
 .power-icon:hover {
-    cursor: pointer;
-    background: #dedede;
+  cursor: pointer;
+  background: #efefef;
+  border-radius: 50%;
+}
+
+.settings {
+  width: 8rem;
+  height: 8rem;
+  margin: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+footer {
+  width: 100%;
+  padding: 0.25rem;
+  background: #efefef;
 }

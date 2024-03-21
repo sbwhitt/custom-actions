@@ -1,38 +1,42 @@
 import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
-//import { setActive, getActive } from "../modules/state";
+import { CommonModule, NgFor, NgIf } from '@angular/common';
+import { RouterOutlet } from '@angular/router';
+import { getActive, setActive, getShortcuts } from "../modules/state";
+
+interface Shortcut {
+  sequence: string[];
+  action: string;
+}
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterOutlet, NgIf, NgFor],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
 export class AppComponent {
   title = 'custom-actions';
   active = true;
+  shortcuts: Shortcut[] = [];
+  menuOpen = false;
 
-  // ngOnInit() {
-    // const powerIcon = document.getElementById("powerIcon");
-    // // initialize power icon state
-    // getActive((active: boolean) => {
-    //   this.handlePowerIcon(active);
-    // });
-    // powerIcon?.addEventListener("click", (e) => {
-    //   getActive((active: boolean) => {
-    //     this.handlePowerIcon(!active);
-    //     setActive(!active);
-    //   });
-    // });
-  // }
+  ngOnInit() {
+    getActive((val: boolean) => {
+      this.active = val;
+    });
 
-  // handlePowerIcon(active: boolean) {
-  //   if (!active) {
-  //     document.getElementById("powerIconPath")?.setAttribute("fill", "gray");
-  //   }
-  //   else {
-  //     document.getElementById("powerIconPath")?.setAttribute("fill", "blue");
-  //   }
-  // }
+    getShortcuts().then((val: Shortcut[]) => {
+      this.shortcuts = val;
+    });
+  }
+
+  toggleActive() {
+    this.active = !this.active;
+    setActive(this.active);
+  }
+
+  toggleMenu() {
+    this.menuOpen = !this.menuOpen;
+  }
 }

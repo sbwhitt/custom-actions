@@ -11,23 +11,33 @@
       "prefix": "app",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-angular:application",
+          "builder": "@angular-builders/custom-webpack:browser",
           "options": {
+            "optimization": {
+              "styles": {
+                "inlineCritical": false
+              }
+            },
+            "customWebpackConfig":{
+              "path": "./webpack.config.ts",
+              "mergeRules": {
+                "externals": "replace"
+              }
+            },
             "outputPath": "dist",
             "index": "src/index.html",
-            "browser": "src/main.ts",
+            "main": "src/main.ts",
             "polyfills": [
               "zone.js"
             ],
             "tsConfig": "tsconfig.app.json",
             "assets": [
               "src/assets",
-              "src/manifest.json",
-              "src/scripts/*.js",
-              "src/modules/*.js"
+              "src/styles.css",
+              "src/manifest.json"
             ],
             "styles": [
-              
+              "src/styles.css"
             ],
             "scripts": []
           },
@@ -45,7 +55,7 @@
                   "maximumError": "4kb"
                 }
               ],
-              "outputHashing": "all"
+              "outputHashing": "none"
             },
             "development": {
               "optimization": false,

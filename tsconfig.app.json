@@ -3,10 +3,12 @@
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "outDir": "./out-tsc/app",
-    "types": []
+    "types": ["chrome"]
   },
   "files": [
-    "src/main.ts"
+    "src/main.ts",
+    "src/script.ts",
+    "src/sw.ts"
   ],
   "include": [
     "src/**/*.d.ts"
