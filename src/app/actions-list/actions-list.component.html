@@ -1,0 +1,8 @@
+<div class="settings">
+  <div *ngFor="let s of shortcuts" class="action">
+    {{s.action.name | actionName}}
+    <!-- <span *ngFor="let k of s.sequence; index as i">
+      {{k | keyName}}{{i !== s.sequence.length-1 ? " + " : ""}}
+    </span> -->
+  </div>
+</div>

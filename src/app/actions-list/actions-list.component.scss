@@ -1,0 +1,17 @@
+.settings {
+  width: 100%;
+  height: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+  font-size: 1rem;
+}
+
+.action {
+  width: 100%;
+  padding: 0.5rem;
+}
+
+.action:hover {
+  cursor: pointer;
+  background: var(--primary-lighter);
+}

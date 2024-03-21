@@ -1,7 +1,12 @@
 <div class="bg">
   <header>
     <div class="title-bar">
-      <svg (click)="toggleMenu();" class="menu-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M20 7L4 7" stroke="white" stroke-width="1.5" stroke-linecap="round"></path> <path d="M20 12L4 12" stroke="white" stroke-width="1.5" stroke-linecap="round"></path> <path d="M20 17L4 17" stroke="white" stroke-width="1.5" stroke-linecap="round"></path> </g></svg>
+      <div (click)="toggleMenu();" class="icon">
+        <svg *ngIf="!menuOpen else back" class="menu-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M20 7L4 7" stroke="white" stroke-width="1.5" stroke-linecap="round"></path> <path d="M20 12L4 12" stroke="white" stroke-width="1.5" stroke-linecap="round"></path> <path d="M20 17L4 17" stroke="white" stroke-width="1.5" stroke-linecap="round"></path> </g></svg>
+        <ng-template #back>
+          <svg class="menu-icon" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" fill="#000000"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"><path fill="#ffffff" d="M224 480h640a32 32 0 1 1 0 64H224a32 32 0 0 1 0-64z"></path><path fill="#ffffff" d="m237.248 512 265.408 265.344a32 32 0 0 1-45.312 45.312l-288-288a32 32 0 0 1 0-45.312l288-288a32 32 0 1 1 45.312 45.312L237.248 512z"></path></g></svg>
+        </ng-template>
+      </div>
       <span class="title">Custom Actions</span>
     </div>
   </header>
@@ -17,14 +22,7 @@
       </svg>
     </div>
     <ng-template #settings>
-      <div class="settings">
-        <div *ngFor="let s of shortcuts" class="shortcut">
-          {{s.action + ": "}}
-          <span *ngFor="let k of s.sequence; index as i">
-            {{k | keyName}}{{i !== s.sequence.length-1 ? " + " : ""}}
-          </span>
-        </div>
-      </div>
+      <app-actions-list></app-actions-list>
     </ng-template>
   </div>
   <footer>
