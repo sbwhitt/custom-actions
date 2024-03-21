@@ -8,8 +8,8 @@
         "128": "./images/icon.png"
     },
     "action": {
-        "default_popup": "./popup/popup.html",
-        "default_icon": "./images/icon.png"
+        "default_popup": "index.html",
+        "default_icon": "./assets/icon.png"
     },
     "permissions": [
         "storage",
@@ -19,12 +19,12 @@
     "content_scripts": [
         {
             "matches": ["<all_urls>"],
-            "js": ["./js/scripts/script.js"],
+            "js": ["./scripts/script.js"],
             "run_at": "document_idle"
         }
     ],
     "background": {
-        "service_worker": "./js/scripts/sw.js",
+        "service_worker": "./scripts/sw.js",
         "type": "module"
     }
 }
