@@ -1,3 +1,4 @@
+import { Action } from "./modules/types";
 import { getActive } from "./modules/state";
 import {
   moveCurrentTabLeft,
@@ -9,7 +10,7 @@ import {
 } from "./modules/actions";
 
 interface ActionMessage {
-  action: string;
+  action: Action;
 }
 
 console.log("service worker");
@@ -29,13 +30,13 @@ function init() {
   }
 }
 
-function handleActions(action: string) {
-  if (action === "tab-left") moveCurrentTabLeft();
-  else if (action === "tab-right") moveCurrentTabRight();
-  else if (action === "duplicate") duplicateCurrentTab();
-  else if (action === "promote") promoteCurrentTab();
-  else if (action === "open-last") openLastLocation();
-  else if (action === "collapse") collapseWindows();
+function handleActions(action: Action) {
+  if (action.name === "tab-left") moveCurrentTabLeft();
+  else if (action.name === "tab-right") moveCurrentTabRight();
+  else if (action.name === "duplicate") duplicateCurrentTab();
+  else if (action.name === "promote") promoteCurrentTab();
+  else if (action.name === "open-last") openLastLocation();
+  else if (action.name === "collapse") collapseWindows();
 }
 
 init();
