@@ -1,3 +1,8 @@
+export interface Shortcut {
+  sequence: string[];
+  action: string;
+}
+
 export function setActive(val: boolean) {
   return chrome.storage.local.set({ active: val });
 }
@@ -11,11 +16,11 @@ export function getActive(callback: Function) {
   });
 }
 
-export function setShortcuts(shortcuts: any[]) {
+export function setShortcuts(shortcuts: Shortcut[]) {
   return chrome.storage.local.set({ shortcuts: shortcuts });
 }
 
-export function getShortcuts() {
+export function getShortcuts(): Promise<Shortcut[]> {
   return chrome.storage.local.get(["shortcuts"]).then((val: any) => {
     return val["shortcuts"];
   });

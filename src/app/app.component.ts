@@ -4,11 +4,6 @@ import { RouterOutlet } from '@angular/router';
 import { KeyNamePipe } from './key-name.pipe';
 import { getActive, setActive, getShortcuts } from "../modules/state";
 
-interface Shortcut {
-  sequence: string[];
-  action: string;
-}
-
 @Component({
   selector: 'app-root',
   standalone: true,
