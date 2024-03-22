@@ -13,8 +13,6 @@ interface ActionMessage {
   action: Action;
 }
 
-console.log("service worker");
-
 function init() {
   try {
     chrome.runtime.onMessage.addListener(
