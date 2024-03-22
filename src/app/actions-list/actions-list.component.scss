@@ -15,3 +15,47 @@
   cursor: pointer;
   background: var(--primary-lighter);
 }
+
+.shortcut {
+  text-align: center;
+  padding: 0.5rem;
+}
+
+.head {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.description {
+  font-size: 1rem;
+  width: 75%;
+}
+
+.close {
+  width: 1.5rem;
+  height: 1.5rem;
+  padding: 0.25rem;
+}
+
+.close:hover {
+  cursor: pointer;
+  background: var(--accent-lighter);
+}
+
+hr {
+  width: 90%;
+  border-color: var(--primary);
+}
+
+.keys {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.key {
+  color: var(--active);
+  font-size: 2.5rem;
+}

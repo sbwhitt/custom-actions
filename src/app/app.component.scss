@@ -20,22 +20,21 @@
   margin: auto auto auto 0.5rem;
 }
 
-.menu-icon {
+.icon {
   width: 1.5rem;
   height: 1.5rem;
   padding: 0.5rem;
-  fill: white;
 }
 
-.menu-icon:hover {
+.icon:hover {
   cursor: pointer;
   background: var(--primary-lighter);
 }
 
-hr {
+.menu-icon {
   width: 100%;
-  color: black;
-  margin: 0;
+  height: 100%;
+  fill: white;
 }
 
 .main-content {
