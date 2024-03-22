@@ -9,6 +9,7 @@ Custom keyboard actions for chrome
 * Ctrl+Right: Move the current tab right
 * Ctrl+Down: Move the current tab to it's own window
 * Alt+Shift+Left: Open the last visited location in a new tab
+* Alt+Down: Collapse all tabs into the same window
 
 ## How it works
 
