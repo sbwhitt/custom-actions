@@ -51,6 +51,8 @@ const defaults: Shortcut[] = [
 async function init() {
   await checkStoredShortcuts();
 
+  await initMessageListener();
+
   document.addEventListener("keyup", (e) => {
     keyMap.set(e.code, false);
   });
@@ -84,6 +86,22 @@ async function checkStoredShortcuts() {
   }
 }
 
+function sendMessageToExtension(msg: any) {
+  return chrome.runtime.sendMessage(msg);
+}
+
+async function initMessageListener() {
+  try {
+    chrome.runtime.onMessage.addListener((msg: any) => {
+      if (msg.type === "test") {
+        sendMessageToExtension({ action: msg.action });
+      }
+    });
+  } catch (err) {
+    console.error(err);
+  }
+}
+
 function handleShortcuts(shortcuts: Shortcut[]) {
   for (let s of shortcuts) {
     let active = true;
@@ -98,10 +116,6 @@ function handleShortcuts(shortcuts: Shortcut[]) {
       return;
     }
   }
-}
-
-function sendMessageToExtension(msg: any) {
-  chrome.runtime.sendMessage(msg);
 }
 
 init();

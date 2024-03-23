@@ -5,6 +5,7 @@ import { KeyNamePipe } from '../pipes/key-name.pipe';
 import { ActionNamePipe } from '../pipes/action-name.pipe';
 import { Shortcut } from '../../modules/types';
 import { getShortcuts } from '../../modules/state';
+import { sendMessageToCurrentTab } from '../../modules/actions';
 
 @Component({
   selector: 'app-actions-list',
@@ -61,4 +62,13 @@ export class ActionsListComponent {
     }
     return ret;
   }
+
+  runAction() {
+    sendMessageToCurrentTab({
+      type: "test",
+      action: this.currentShortcut?.action
+    });
+  }
+
+  updateAction() {}
 }
