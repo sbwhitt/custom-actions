@@ -1,26 +1,33 @@
-<div class="settings" *ngIf="!shortcutOpen; else shortcut">
-  <div
+<header>
+  <div class="title-bar">
+    <a
+      (click)="goBack();"
+      class="back-btn"
+    >
+      <svg class="back-icon" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" fill="#000000"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"><path fill="#ffffff" d="M224 480h640a32 32 0 1 1 0 64H224a32 32 0 0 1 0-64z"></path><path fill="#ffffff" d="m237.248 512 265.408 265.344a32 32 0 0 1-45.312 45.312l-288-288a32 32 0 0 1 0-45.312l288-288a32 32 0 1 1 45.312 45.312L237.248 512z"></path></g></svg>
+    </a>
+    <span class="title">{{ shortcutOpen ? "Shortcut settings" : "Actions" }}</span>
+  </div>
+</header>
+<div class="actions" *ngIf="!shortcutOpen; else shortcut">
+  <button
     *ngFor="let s of shortcuts; index as i"
     (click)="openShortcut(i)"
-    class="action"
+    class="btn action-btn"
   >
     {{s.action.name | actionName}}
-  </div>
+  </button>
 </div>
 <ng-template #shortcut>
   <div class="shortcut">
-    <div class="head">
-      <span class="description">{{currentShortcut?.action?.description}}</span>
-      <svg (click)="closeShortcut();" class="close" viewBox="-0.5 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M3 21.32L21 3.32001" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M3 3.32001L21 21.32" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg>
+    <div class="sequence">
+      <span *ngFor="let k of getList()" class="key">
+        {{k | keyName}}
+      </span>
     </div>
     <hr />
-    <div class="keys">
-      <span class="key">
-        {{
-          currentShortcut && currentShortcut.sequence ?
-          getSequence(currentShortcut.sequence) : ""
-        }}
-      </span>
+    <div class="head">
+      <span class="description">{{currentShortcut?.action?.description}}</span>
     </div>
   </div>
 </ng-template>

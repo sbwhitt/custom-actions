@@ -1,8 +1,8 @@
 import { Routes } from '@angular/router';
-import { PowerComponent } from './power/power.component';
+import { LandingComponent } from './landing/landing.component';
 import { ActionsListComponent } from './actions-list/actions-list.component';
 
 export const routes: Routes = [
-  { path: "", component: PowerComponent },
+  { path: "", component: LandingComponent },
   { path: "settings", component: ActionsListComponent }
 ];

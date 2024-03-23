@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { NgFor, NgIf } from '@angular/common';
+import { Router } from '@angular/router';
 import { KeyNamePipe } from '../pipes/key-name.pipe';
 import { ActionNamePipe } from '../pipes/action-name.pipe';
 import { Shortcut } from '../../modules/types';
@@ -21,7 +22,7 @@ import { getShortcuts } from '../../modules/state';
   styleUrl: './actions-list.component.scss'
 })
 export class ActionsListComponent {
-  constructor(private keyName: KeyNamePipe) {}
+  constructor(private keyName: KeyNamePipe, private router: Router) {}
 
   shortcuts: Shortcut[] = [];
   shortcutOpen = false;
@@ -33,6 +34,11 @@ export class ActionsListComponent {
     });
   }
 
+  goBack() {
+    if (this.shortcutOpen) this.shortcutOpen = false;
+    else this.router.navigate([""]);
+  }
+
   openShortcut(i: number) {
     this.shortcutOpen = true;
     this.currentShortcut = this.shortcuts[i];
@@ -40,6 +46,11 @@ export class ActionsListComponent {
 
   closeShortcut() {
     this.shortcutOpen = false;
+  }
+
+  getList() {
+    if (!this.currentShortcut) return [];
+    return this.currentShortcut.sequence;
   }
 
   getSequence(seq: string[]) {

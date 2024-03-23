@@ -7,39 +7,13 @@
   background: var(--accent);
 }
 
-.title-bar {
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
-  background: var(--primary);
-}
-
-.title {
-  font-size: 1.10rem;
-  font-weight: bold;
-  margin: auto auto auto 0.5rem;
-}
-
-.icon {
-  width: 1.5rem;
-  height: 1.5rem;
-  padding: 0.5rem;
-}
-
-.icon:hover {
-  cursor: pointer;
-  background: var(--primary-lighter);
-}
-
-.menu-icon {
-  width: 100%;
+app-landing {
   height: 100%;
-  fill: white;
 }
 
 .main-content {
   width: 100%;
-  height: 100%;
+  height: 100%;;
 }
 
 footer {

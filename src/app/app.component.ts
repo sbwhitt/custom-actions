@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { CommonModule, NgIf } from '@angular/common';
-import { RouterOutlet, RouterLink } from '@angular/router';
-import packageInfo from '../../package.json';
+import { RouterOutlet } from '@angular/router';
+import { VersionService } from './services/version.service';
 
 @Component({
   selector: 'app-root',
@@ -9,18 +9,14 @@ import packageInfo from '../../package.json';
   imports: [
     CommonModule,
     RouterOutlet,
-    RouterLink,
     NgIf
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
 export class AppComponent {
-  title = 'custom-actions';
-  version = packageInfo.version;
-  settingsOpen = false;
+  constructor(private versionService: VersionService) {}
 
-  toggleSettings() {
-    this.settingsOpen = !this.settingsOpen;
-  }
+  title = 'custom-actions';
+  version = this.versionService.getVersion();
 }
