@@ -62,7 +62,8 @@ async function init() {
         handleShortcuts(res);
       });
     } catch (err) {
-      console.log(err);
+      // eating 'Extension context invalidated' errors
+      return;
     }
   });
 
@@ -79,7 +80,7 @@ async function checkStoredShortcuts() {
       }
     });
   } catch (err) {
-    console.error(err);
+    console.error("Error checking stored shortcuts: ", err);
   }
 }
 

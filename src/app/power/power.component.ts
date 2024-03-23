@@ -17,7 +17,6 @@ export class PowerComponent {
   ngOnInit() {
     getActive((val: boolean) => {
       this.active = val;
-      console.log(this.active);
     });
   }
 
