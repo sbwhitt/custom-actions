@@ -1,8 +1,9 @@
 {
     "name": "Custom Actions",
     "description": "Custom keyboard shortcuts for your browser.",
-    "version": "0.1.0",
+    "version": "0.1.1",
     "manifest_version": 3,
+    "host_permissions": ["<all_urls>"],
     "icons": {
         "48": "./assets/icon.png",
         "128": "./assets/icon.png"
@@ -12,6 +13,7 @@
         "default_icon": "./assets/icon.png"
     },
     "permissions": [
+        "scripting",
         "storage",
         "tabs",
         "history"
