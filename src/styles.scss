@@ -5,7 +5,8 @@
   --accent-lighter: #3b3b43;
   --active: #73cfea;
   --active-lighter: #83d9f5;
-  --warn: red;
+  --warn: #fd6363;
+  --confirm: #8bfd8b;
 }
 
 body {
@@ -37,6 +38,22 @@ body {
     animation: fillIn 0.5s forwards;
   }
 }
+
+.options {
+  width: 100%;
+  height: 3rem;
+}
+
+.btn-icon {
+  width: 0.8rem;
+  height: 0.8rem;
+}
+
+.option-btn {
+  width: 50%;
+  height: 100%;
+}
+
 
 @keyframes fillIn {
   from {
