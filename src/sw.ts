@@ -23,6 +23,7 @@ function reInjectContentScript() {
     if (!scripts) return;
     const cs = scripts[0];
     for (const tab of await chrome.tabs.query({url: cs.matches})) {
+      if (tab?.url?.startsWith("chrome://")) continue;
       chrome.scripting.executeScript({
         files: cs.js ? cs.js : [],
         target: {
