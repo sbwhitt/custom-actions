@@ -13,3 +13,36 @@ body {
   font-family: Arial, Helvetica, sans-serif;
   color: white;
 }
+
+::-webkit-scrollbar {
+  width: 4px;
+  overflow-y: scroll;
+  background: var(--accent);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--primary);
+  border-radius: 10px;
+}
+
+.btn {
+  color: white;
+  font-size: 1rem;
+  padding: 0.5rem;
+  outline: none;
+  border: none;
+  background: none;
+  &:hover {
+    cursor: pointer;
+    animation: fillIn 0.5s forwards;
+  }
+}
+
+@keyframes fillIn {
+  from {
+    box-shadow: inset 1px 0 0 0 var(--primary-lighter);
+  }
+  to {
+    box-shadow: inset 200px 0 0 0 var(--primary-lighter);
+  }
+}
