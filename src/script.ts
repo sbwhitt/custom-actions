@@ -1,4 +1,4 @@
-import { Shortcut } from "./modules/types";
+import { Action, Shortcut } from "./modules/types";
 import { getShortcuts, setShortcuts } from "./modules/state";
 
 var keyMap = new Map();
@@ -92,7 +92,7 @@ function sendMessageToExtension(msg: any) {
 
 async function initMessageListener() {
   try {
-    chrome.runtime.onMessage.addListener((msg: any) => {
+    chrome.runtime.onMessage.addListener((msg: { type: string, action: Action }) => {
       if (msg.type === "test") {
         sendMessageToExtension({ action: msg.action });
       }
