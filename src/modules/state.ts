@@ -1,15 +1,25 @@
 import { Shortcut } from "./types";
 
-export function setActive(val: boolean) {
-  return chrome.storage.local.set({ active: val });
+export function setActive(
+  val: boolean,
+  setIcon: boolean = true
+): Promise<boolean> {
+  return chrome.storage.local.set({ active: val }).then(() => {
+    if (setIcon) {
+      const path = val ?
+        { path: "assets/icon_38.png" } : { path: "assets/icon_disabled_38.png" };
+      chrome.action.setIcon(path);
+    }
+    return val;
+  });
 }
 
-export function getActive(callback: Function) {
-  chrome.storage.local.get(["active"]).then((val) => {
+export function getActive(): Promise<boolean> {
+  return chrome.storage.local.get(["active"]).then((val) => {
     if (val["active"] === undefined) {
-      setActive(true).then(() => { callback(true) });
+      return setActive(true).then((active) => active);
     }
-    else callback(val["active"]);
+    return val["active"];
   });
 }
 

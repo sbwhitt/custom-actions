@@ -20,18 +20,12 @@ export class LandingComponent {
   active = true;
 
   ngOnInit() {
-    getActive((val: boolean) => {
-      this.active = val;
-    });
+    getActive().then(active => this.active = active);
   }
 
   toggleActive() {
     this.active = !this.active;
-    setActive(this.active).then(() => {
-      const path = this.active ?
-        { path: "assets/icon_38.png" } : { path: "assets/icon_disabled_38.png" };
-      chrome.action.setIcon(path);
-    });
+    setActive(this.active);
   }
 
   openSettings() {
