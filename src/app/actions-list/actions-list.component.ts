@@ -1,10 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, HostListener } from '@angular/core';
 import { NgFor, NgIf } from '@angular/common';
 import { Router } from '@angular/router';
 import { KeyNamePipe } from '../pipes/key-name.pipe';
 import { ActionNamePipe } from '../pipes/action-name.pipe';
 import { Shortcut } from '../../modules/types';
-import { getShortcuts } from '../../modules/state';
+import { getActive, getShortcuts, setActive, setShortcuts } from '../../modules/state';
 import { sendMessageToCurrentTab } from '../../modules/actions';
 
 @Component({
@@ -23,16 +23,29 @@ import { sendMessageToCurrentTab } from '../../modules/actions';
   styleUrl: './actions-list.component.scss'
 })
 export class ActionsListComponent {
-  constructor(private keyName: KeyNamePipe, private router: Router) {}
+  constructor(private router: Router) {}
 
   shortcuts: Shortcut[] = [];
-  shortcutOpen = false;
   currentShortcut: Shortcut | null = null;
+  inputSequence: string[] = [];
+  promptText: string = "";
+  shortcutOpen = false;
+  recording = false;
+  wasActive = false;
 
   ngOnInit() {
     getShortcuts().then((val: Shortcut[]) => {
       this.shortcuts = val;
     });
+  }
+
+  @HostListener("document:keydown", ["$event"])
+  handleKeyDown(event: KeyboardEvent) {
+    if (!this.recording) return;
+    event.preventDefault();
+    if (this.inputSequence.includes(event.code)) return;
+    if (this.inputSequence.length < 3)
+      this.inputSequence.push(event.code);
   }
 
   goBack() {
@@ -49,18 +62,9 @@ export class ActionsListComponent {
     this.shortcutOpen = false;
   }
 
-  getList() {
+  getCurrentSequence(): string[] {
     if (!this.currentShortcut) return [];
     return this.currentShortcut.sequence;
-  }
-
-  getSequence(seq: string[]) {
-    let ret = "";
-    for (let i = 0; i < seq.length; i++) {
-      ret += this.keyName.transform(seq[i]);
-      if (i < seq.length-1) ret += " + ";
-    }
-    return ret;
   }
 
   runAction() {
@@ -70,5 +74,61 @@ export class ActionsListComponent {
     });
   }
 
-  updateAction() {}
+  updateAction() {
+    getActive().then((active) => {
+      if (active) {
+        setActive(false);
+        this.wasActive = true;
+      }
+      else this.wasActive = false;
+      this.recording = true;
+    });
+    this.promptText = "Enter key sequence...";
+  }
+
+  isEqual(seq1: string[], seq2: string[]): boolean {
+    if (seq1.length !== seq2.length) return false;
+    for (let i = 0; i < seq1.length; i++) {
+      if (seq1[i] !== seq2[i]) return false;
+    }
+    return true;
+  }
+
+  duplicateShortcut(sequence: string[]): boolean {
+    for (let shortcut of this.shortcuts) {
+      if (this.isEqual(sequence, shortcut.sequence)) return true;
+    }
+    return false;
+  }
+
+  validSequence(): boolean {
+    if (this.inputSequence.length < 2) {
+      this.promptText = "Key sequence too short!";
+      this.inputSequence = [];
+      return false;
+    }
+    if (this.duplicateShortcut(this.inputSequence)) {
+      this.promptText = "Key sequence already in use!";
+      this.inputSequence = [];
+      return false;
+    }
+    return true;
+  }
+
+  saveRecording() {
+    if (!this.validSequence()) return;
+    if (this.currentShortcut) {
+      this.currentShortcut.sequence = this.inputSequence;
+      setShortcuts(this.shortcuts);
+    }
+    this.cancelRecording();
+  }
+
+  cancelRecording() {
+    if (this.wasActive) {
+      setActive(true);
+    }
+    this.recording = false;
+    this.inputSequence = [];
+  }
 }

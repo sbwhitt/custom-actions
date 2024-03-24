@@ -71,13 +71,19 @@ hr {
   border-color: var(--primary);
 }
 
+.sequence-container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
 .sequence {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: center;
   gap: 0.5rem;
-  margin-top: 0.5rem;
 }
 
 .key {
@@ -87,4 +93,10 @@ hr {
   border-radius: 4px;
   box-shadow: 1px 1px 1px black;
   padding: 0.25rem;
+}
+
+.prompt {
+  font-size: 1rem;
+  padding: 0.4rem;
+  color: var(--primary-lighter);
 }
