@@ -41,7 +41,7 @@ function init() {
   try {
     chrome.runtime.onMessage.addListener(
       function (msg: ActionMessage) {
-        getActive((active: boolean) => {
+        getActive().then((active) => {
           if (active) handleActions(msg.action);
         });
       }

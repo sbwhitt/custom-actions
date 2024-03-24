@@ -13,6 +13,6 @@ Custom keyboard actions for chrome
 
 ## How it works
 
-The keyup and keydown event listeners are loaded in a content script (scripts/script.ts) which is declared in the manifest under 'content_scripts'.
+The keyup and keydown event listeners are loaded in a content script (src/script.ts) which is declared in the manifest under 'content_scripts'. The content script is injected into tabs within the browser when they are created. 
 
-When key events are detected, the content script sends actions through messages to the service worker (scripts/sw.ts) which is registered in the manifest under 'background > service_worker.'
+When key events are detected, the content script sends actions through messages to the service worker (src/sw.ts) which is registered in the manifest under 'background > service_worker.'

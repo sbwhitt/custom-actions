@@ -1,7 +1,8 @@
-import { Shortcut } from "./modules/types";
+import { Action, Shortcut } from "./modules/types";
 import { getShortcuts, setShortcuts } from "./modules/state";
+import { KeyMap } from "./modules/keymap";
 
-var keyMap = new Map();
+const keyMap = new KeyMap();
 
 const defaults: Shortcut[] = [
   {
@@ -51,12 +52,14 @@ const defaults: Shortcut[] = [
 async function init() {
   await checkStoredShortcuts();
 
+  await initMessageListener();
+
   document.addEventListener("keyup", (e) => {
-    keyMap.set(e.code, false);
+    keyMap.handleUp(e.code);
   });
 
   document.addEventListener("keydown", (e) => {
-    keyMap.set(e.code, true);
+    keyMap.handleDown(e.code);
     try {
       getShortcuts().then((res) => {
         handleShortcuts(res);
@@ -67,8 +70,9 @@ async function init() {
     }
   });
 
+  // reset keys when tab is switched
   document.addEventListener('visibilitychange', () => {
-    keyMap = new Map();
+    keyMap.reset();
   });
 }
 
@@ -84,8 +88,25 @@ async function checkStoredShortcuts() {
   }
 }
 
+function sendMessageToExtension(msg: any) {
+  return chrome.runtime.sendMessage(msg);
+}
+
+async function initMessageListener() {
+  try {
+    chrome.runtime.onMessage.addListener((msg: { type: string, action: Action }) => {
+      if (msg.type === "test") {
+        sendMessageToExtension({ action: msg.action });
+      }
+    });
+  } catch (err) {
+    console.error(err);
+  }
+}
+
 function handleShortcuts(shortcuts: Shortcut[]) {
   for (let s of shortcuts) {
+    if (s.sequence.length !== keyMap.numDown) continue;
     let active = true;
     for (let key of s.sequence) {
       if (!keyMap.get(key)) {
@@ -98,10 +119,6 @@ function handleShortcuts(shortcuts: Shortcut[]) {
       return;
     }
   }
-}
-
-function sendMessageToExtension(msg: any) {
-  chrome.runtime.sendMessage(msg);
 }
 
 init();

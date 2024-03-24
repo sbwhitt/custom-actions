@@ -20,9 +20,7 @@ export class LandingComponent {
   active = true;
 
   ngOnInit() {
-    getActive((val: boolean) => {
-      this.active = val;
-    });
+    getActive().then(active => this.active = active);
   }
 
   toggleActive() {
