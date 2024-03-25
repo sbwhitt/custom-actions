@@ -40,6 +40,7 @@
 .action-btn {
   width: 100%;
   text-align: left;
+  border-bottom: solid 2px var(--primary);
   &:hover {
     cursor: pointer;
     background: var(--primary-lighter);
