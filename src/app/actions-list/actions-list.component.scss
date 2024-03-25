@@ -8,6 +8,7 @@
   justify-content: flex-start;
   background: var(--primary);
   height: 15%;
+  box-shadow: 0 2px 5px #0000004d;
 }
 
 .title {
@@ -88,6 +89,7 @@ hr {
 
 .key {
   color: var(--active);
+  font-family: 'Courier New', Courier, monospace;
   font-size: 1rem;
   border: solid var(--primary-lighter);
   border-radius: 4px;

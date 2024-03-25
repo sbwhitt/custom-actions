@@ -1,32 +1,38 @@
 {
-    "name": "Custom Actions",
-    "description": "Custom keyboard shortcuts for your browser.",
-    "version": "0.3.0",
-    "manifest_version": 3,
-    "host_permissions": ["<all_urls>"],
-    "icons": {
-        "48": "./assets/icon.png",
-        "128": "./assets/icon.png"
-    },
-    "action": {
-        "default_popup": "index.html",
-        "default_icon": "./assets/icon_38.png"
-    },
-    "permissions": [
-        "scripting",
-        "storage",
-        "tabs",
-        "history"
-    ],
-    "content_scripts": [
-        {
-            "matches": ["<all_urls>"],
-            "js": ["./script.js"],
-            "run_at": "document_idle"
-        }
-    ],
-    "background": {
-        "service_worker": "./sw.js",
-        "type": "module"
+  "name": "Custom Actions",
+  "description": "Custom keyboard shortcuts for your browser.",
+  "version": "0.3.1",
+  "manifest_version": 3,
+  "host_permissions": [
+    "<all_urls>"
+  ],
+  "icons": {
+    "48": "./assets/icon.png",
+    "128": "./assets/icon.png"
+  },
+  "action": {
+    "default_popup": "index.html",
+    "default_icon": "./assets/icon_38.png"
+  },
+  "permissions": [
+    "scripting",
+    "storage",
+    "tabs",
+    "history"
+  ],
+  "content_scripts": [
+    {
+      "matches": [
+        "<all_urls>"
+      ],
+      "js": [
+        "./script.js"
+      ],
+      "run_at": "document_idle"
     }
+  ],
+  "background": {
+    "service_worker": "./sw.js",
+    "type": "module"
+  }
 }
