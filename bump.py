@@ -29,11 +29,13 @@ if __name__ == "__main__":
         with open(file, "r") as fin:
             for l in fin.readlines():
                 raw += l
-        js = json.loads(raw)
+        fin.close()
 
-        with open(file, "w") as fin:
+        js = json.loads(raw)
+        with open(file, "w") as fout:
             v = js["version"].split(".")
             updated = update(v, version)
             js["version"] = updated
-            fin.write(json.dumps(js, indent=2))
+            fout.write(json.dumps(js, indent=2))
+        fout.close()
     
