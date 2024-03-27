@@ -1,5 +1,6 @@
 :root {
   --primary: #323543;
+  --primary-clear: #323543af;
   --primary-lighter: #525563;
   --accent: #1b1b23;
   --accent-lighter: #3b3b43;
@@ -57,7 +58,6 @@ body {
   width: 50%;
   height: 100%;
 }
-
 
 @keyframes fillIn {
   from {

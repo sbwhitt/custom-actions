@@ -42,7 +42,7 @@ async function addEventListeners() {
   });
 
   // reset keys when tab is switched
-  document.addEventListener('visibilitychange', () => {
+  document.addEventListener("visibilitychange", () => {
     keyMap.reset();
   });
 }
@@ -51,7 +51,7 @@ async function addMessageListener() {
   try {
     chrome.runtime.onMessage.addListener((msg: { type: string, action: Action }) => {
       if (msg.type === "test") {
-        sendMessageToExtension({ action: msg.action });
+        sendMessageToExtension({ action: msg.action, test: true });
       }
     });
   } catch (err) {

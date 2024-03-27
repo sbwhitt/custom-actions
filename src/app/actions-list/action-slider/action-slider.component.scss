@@ -1,0 +1,40 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 4px;
+  margin-right: 4px;
+}
+
+.track {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border-radius: 2rem;
+  width: 32px;
+  height: 18px;
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.slider {
+  border-radius: 2rem;
+  width: 12px;
+  height: 12px;
+  background: var(--primary-lighter);
+  box-shadow: 1px 1px 2px #00000070;
+  &:hover {
+    box-shadow: 0px 0px 3px var(--accent);
+  }
+}
+
+.left {
+  transition: all 0.3s ease;
+  margin-left: 4px;
+}
+
+.right {
+  transition: all 0.3s ease;
+  margin-left: 16px;
+}
