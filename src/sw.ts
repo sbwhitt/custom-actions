@@ -42,7 +42,7 @@ function init() {
     chrome.runtime.onMessage.addListener(
       function (msg: ActionMessage) {
         getActive().then((active) => {
-          if (active) handleActions(msg.action);
+          if (active && msg.action.active) handleActions(msg.action);
         });
       }
     );

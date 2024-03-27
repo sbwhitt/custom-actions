@@ -8,13 +8,15 @@
   <span class="title">{{ shortcutOpen ? "Shortcut settings" : "Actions" }}</span>
 </header>
 <div class="actions" *ngIf="!shortcutOpen; else shortcut">
-  <button
-    *ngFor="let s of shortcuts; index as i"
-    (click)="openShortcut(i)"
-    class="btn action-btn"
-  >
-    {{s.action.name | actionName}}
-  </button>
+  <div *ngFor="let s of shortcuts; index as i" class="action-btn-container">
+    <button
+      (click)="openShortcut(i)"
+      class="btn action-btn"
+    >
+      {{s.action.name | actionName}}
+    </button>
+    <input type="checkbox" [checked]="s.action.active" />
+  </div>
 </div>
 <ng-template #shortcut>
   <app-action-shortcut
