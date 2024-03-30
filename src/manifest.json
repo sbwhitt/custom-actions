@@ -1,7 +1,7 @@
 {
   "name": "Custom Actions",
   "description": "Custom keyboard shortcuts for your browser.",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "manifest_version": 3,
   "host_permissions": [
     "<all_urls>"

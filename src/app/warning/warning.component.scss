@@ -1,0 +1,10 @@
+.warning {
+  position: fixed;
+  top: 0.5rem;
+  left: calc(100% - 2.25rem);
+  width: 1.75rem;
+  height: 1.75rem;
+  &:hover {
+    cursor: pointer;
+  }
+}
