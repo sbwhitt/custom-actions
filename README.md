@@ -11,6 +11,14 @@ Custom keyboard actions for chrome
 * Alt+Shift+Left: Open the last visited location in a new tab
 * Alt+Down: Collapse all tabs into the same window
 
+## Screenshots
+
+![Main screen](screenshots/main.png)
+
+![Actions list](screenshots/actions.png)
+
+![Shortcut options](screenshots/shortcut.png)
+
 ## How it works
 
 The keyup and keydown event listeners are loaded in a content script (src/script.ts) which is declared in the manifest under 'content_scripts'. The content script is injected into tabs within the browser when they are created. 
