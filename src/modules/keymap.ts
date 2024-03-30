@@ -1,23 +1,27 @@
 export class KeyMap {
   private keyMap = new Map();
-  numDown = 0;
 
   get(key: string): boolean {
     return !!this.keyMap.get(key);
   }
 
+  getNumDown(): number {
+    let ret = 0;
+    for (let k of this.keyMap.entries()) {
+      if (k[1]) ret++;
+    }
+    return ret;
+  }
+
   handleDown(key: string): void {
-    this.numDown++;
     this.keyMap.set(key, true);
   }
 
   handleUp(key: string): void {
-    this.numDown--;
     this.keyMap.set(key, false);
   }
 
   reset(): void {
     this.keyMap = new Map();
-    this.numDown = 0;
   }
 }

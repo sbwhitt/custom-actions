@@ -8,13 +8,23 @@
   <span class="title">{{ shortcutOpen ? "Shortcut settings" : "Actions" }}</span>
 </header>
 <div class="actions" *ngIf="!shortcutOpen; else shortcut">
-  <button
-    *ngFor="let s of shortcuts; index as i"
-    (click)="openShortcut(i)"
-    class="btn action-btn"
+  <div
+    *ngFor="let s of shortcuts; index as i; trackBy: trackByFunc"
+    [class]="s.action.active ?  'action-btn-container' : 'action-btn-container inactive'"
   >
-    {{s.action.name | actionName}}
-  </button>
+    <button
+      (click)="openShortcut(i)"
+      [class]="s.action.active ? 'action-btn btn' : 'action-btn btn inactive'"
+      title="Open shortcut settings"
+    >
+      {{s.action.name | actionName}}
+    </button>
+    <app-action-slider
+      (click)="toggleActive(s)"
+      [active]="s.action.active"
+      title="Toggle shortcut"
+    ></app-action-slider>
+  </div>
 </div>
 <ng-template #shortcut>
   <app-action-shortcut

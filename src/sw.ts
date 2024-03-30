@@ -11,6 +11,7 @@ import {
 
 interface ActionMessage {
   action: Action;
+  test?: boolean;
 }
 
 // https://stackoverflow.com/questions/10994324/chrome-extension-content-script-re-injection-after-upgrade-or-install/11598753#11598753
@@ -30,7 +31,7 @@ function reInjectContentScript() {
           tabId: tab.id ? tab.id : 0,
           allFrames: cs.all_frames
         },
-        injectImmediately: cs.run_at === 'document_start',
+        injectImmediately: cs.run_at === "document_start",
       });
     }
   });
@@ -42,7 +43,8 @@ function init() {
     chrome.runtime.onMessage.addListener(
       function (msg: ActionMessage) {
         getActive().then((active) => {
-          if (active) handleActions(msg.action);
+          if (msg.test) handleActions(msg.action);
+          else if (active && msg.action.active) handleActions(msg.action);
         });
       }
     );

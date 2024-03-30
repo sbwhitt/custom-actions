@@ -37,12 +37,26 @@
   overflow-y: auto;
 }
 
-.action-btn {
-  width: 100%;
-  text-align: left;
+.action-btn-container {
+  display: flex;
+  flex-direction: row;
   border-bottom: solid 2px var(--primary);
+  background: var(--primary-clear);
   &:hover {
     cursor: pointer;
     background: var(--primary-lighter);
   }
+}
+
+.action-btn {
+  width: 100%;
+  text-align: left;
+  outline: none;
+  border: none;
+  background: none;
+}
+
+.inactive {
+  color: lightgray;
+  background: none;
 }
