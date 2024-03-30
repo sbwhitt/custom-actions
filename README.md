@@ -2,7 +2,7 @@
 
 Custom keyboard actions for chrome
 
-## Actions
+## Default actions
 
 * Ctrl+Up: Duplicate the current tab
 * Ctrl+Left: Move the current tab left
@@ -13,9 +13,15 @@ Custom keyboard actions for chrome
 
 ## Screenshots
 
-![Main screen](screenshots/main.png)
+Main landing screen
+
+![Main landing screen](screenshots/main.png)
+
+Actions list
 
 ![Actions list](screenshots/actions.png)
+
+Shortcut options
 
 ![Shortcut options](screenshots/shortcut.png)
 
