@@ -41,7 +41,7 @@ export function moveCurrentTabLeft() {
 export function moveCurrentTabRight() {
   getCurrentTab(async (tab: chrome.tabs.Tab) => {
     const tabs = await chrome.tabs.query({});
-    const numTabs = tabs.length;
+    const numTabs = tabs.filter(t => t.windowId === tab.windowId).length;
     let newIndex;
     if (tab.index + 1 === numTabs) newIndex = 0;
     else newIndex = tab.index + 1;
