@@ -13,17 +13,13 @@ Custom keyboard actions for chrome
 
 ## Screenshots
 
-Main landing screen
+Main landing screen and Actions list
 
-![Main landing screen](screenshots/main.png)
+![Main landing screen](screenshots/screens1.png)
 
-Actions list
+Shortcut settings
 
-![Actions list](screenshots/actions.png)
-
-Shortcut options
-
-![Shortcut options](screenshots/shortcut.png)
+![Shortcut settings](screenshots/screens2.png)
 
 ## How it works
 
