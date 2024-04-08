@@ -1,6 +1,6 @@
 # Custom Actions extension
 
-Custom keyboard actions for chrome
+Custom keyboard actions for chrome. Now available on the <a href="https://chromewebstore.google.com/detail/custom-actions/glbciamkigkehloillocfhpdiiomboid">Chrome Web Store</a>!
 
 ## Default actions
 
