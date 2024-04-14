@@ -3,6 +3,7 @@ import { getActive } from "./modules/state";
 import {
   moveCurrentTabLeft,
   moveCurrentTabRight,
+  moveTabToNextWindow,
   duplicateCurrentTab,
   promoteCurrentTab,
   openLastLocation,
@@ -57,6 +58,7 @@ function init() {
 function handleActions(action: Action) {
   if (action.name === "tab-left") moveCurrentTabLeft();
   else if (action.name === "tab-right") moveCurrentTabRight();
+  else if (action.name === "change-window") moveTabToNextWindow();
   else if (action.name === "duplicate") duplicateCurrentTab();
   else if (action.name === "promote") promoteCurrentTab();
   else if (action.name === "open-last") openLastLocation();

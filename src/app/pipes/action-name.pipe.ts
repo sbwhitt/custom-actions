@@ -12,6 +12,8 @@ export class ActionNamePipe implements PipeTransform {
         return "Move Tab Left";
       case "tab-right":
         return "Move Tab Right";
+      case "change-window":
+        return "Move Tab to Next Window";
       case "duplicate":
         return "Duplicate Tab";
       case "promote":

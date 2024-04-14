@@ -49,6 +49,28 @@ export function moveCurrentTabRight() {
   });
 }
 
+async function focusTabInWindow(tab: chrome.tabs.Tab, window: chrome.windows.Window): Promise<chrome.tabs.Tab> {
+  if (tab.id === undefined || window.id === undefined) {
+    console.log("no id");
+    return new Promise(() => tab);
+  }
+  await chrome.windows.update(window.id, { focused: true });
+  return chrome.tabs.update(tab.id, { highlighted: true, active: true });
+}
+
+export function moveTabToNextWindow() {
+  getCurrentTab(async (tab: chrome.tabs.Tab) => {
+    if (tab.id === undefined) return;
+    const currentWindow = await chrome.windows.getCurrent();
+    const windows = await chrome.windows.getAll();
+    for (const w of windows) {
+      if (w.id !== currentWindow.id && tab.id) {
+        chrome.tabs.move(tab.id, { index: 0, windowId: w.id }).then((t) => focusTabInWindow(t, w));
+      }
+    }
+  });
+}
+
 export function duplicateCurrentTab() {
   getCurrentTab((tab: chrome.tabs.Tab) => {
     openTab(tab.url);

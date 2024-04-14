@@ -18,6 +18,14 @@ export const defaults: Shortcut[] = [
     }
   },
   {
+    sequence: ["ControlLeft", "ShiftLeft", "ArrowRight"],
+    action: {
+      name: "change-window",
+      description: "Moves the current tab to the next window.",
+      active: true
+    }
+  },
+  {
     sequence: ["ControlLeft", "ArrowUp"],
     action: {
       name: "duplicate",
